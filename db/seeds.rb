@@ -1,3 +1,7 @@
+User.destroy_all
+Book.destroy_all
+ReadingList.destroy_all
+BookRoster.destroy_all
 
 luna = User.create(username: "LunaLovegood")
 
