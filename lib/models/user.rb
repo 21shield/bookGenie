@@ -1,4 +1,47 @@
 class User < ActiveRecord::Base
     has_many :reading_lists
+    @@prompt = TTY::Prompt.new(active_color: :cyan, symbols: {marker: '📘', radio_on: 
+    '📖', radio_off: ' '})
+
+    def self.prompt
+        @@prompt
+    end
+
+
+    def self.login
+        response = prompt.ask("Enter Your Username")
+        found_user = User.find_by(username: response)
+        found_user ? found_user : self.incorrect_info
+        
+    end
+
+    def guest_login
+        User.find_by_create_by(username: "Guest")
+    end
+
+    def self.register_new_user
+        username = self.prompt.ask("Create a Username #{"Must be 3 characters or greater and not contain and spaces or special characters".colorize(:light_black)}\n") do |answer|
+            answer.validate (/\w{3,}/)
+            answer.messages[:valid?] = 'Invalid username, try again'.colorize(:red)
+        end
+
+        if User.find_by(username: username) 
+            puts "Username already taken!".colorize(:red)
+            sleep(2)
+            print "\r" + ("\e[A\e[K"*3)
+            self.register_new_user
+        else
+            User.create(username: username)
+            puts "Username successfully created!".colorize(:cyan)
+            sleep(2)
+        end
+        
+    end
+
+    def self.incorrect_info
+        puts "INOCORRECT INPUT".colorize(:red)
+        puts "Please try again"
+        self.login
+    end
 
 end
