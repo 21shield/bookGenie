@@ -7,21 +7,21 @@ class Interface
     end
 
     def welcome
-        puts "Welcome to Book Genie"
+        puts '88""Yb  dP"Yb   dP"Yb  88  dP      dP""b8 888888 88b 88 88 888888 '.colorize(:cyan)
+        puts '88__dP dP   Yb dP   Yb 88odP      dP   `" 88__   88Yb88 88 88__   '.colorize(:cyan)
+        puts '88""Yb Yb   dP Yb   dP 88"Yb      Yb  "88 88""   88 Y88 88 88""   '.colorize(:cyan)
+        puts '88oodP  YbodP   YbodP  88  Yb      YboodP 888888 88  Y8 88 888888 '.colorize(:cyan)
     end
 
     def login_register_prompt
         selection = prompt.select("Logging in? or Registering?", ["Logging in", "Registering", "Guest"])
         if selection == "Logging in"
-            # calls function that handles loggining
             puts "logging in ...."
             current_user = User.login   
         elsif selection == "Registering"
-            # calls function that handles registering
             puts "registering..."
             current_user = User.register_new_user
         else
-            # calls funtion that log ins a "guest"
             current_user = User.guest_login
         end
 
@@ -29,9 +29,10 @@ class Interface
 
     end
 
-    def main_page(user_instance)
+    def main_page
         system 'clear'
-        # puts "#{user.username}          #{"Book Genie".colorize(:light_cyan)}\n\n"
+        self.welcome
+        puts "         #{user.username}          #{"Book Genie".colorize(:light_cyan)}"
 
     end
 
