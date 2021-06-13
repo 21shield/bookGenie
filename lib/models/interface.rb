@@ -24,13 +24,14 @@ class Interface
             # calls funtion that log ins a "guest"
             current_user = User.guest_login
         end
-        
-        binding.pry    
+
+         current_user
 
     end
-    def main_page
+
+    def main_page(user_instance)
         system 'clear'
-        puts "#{user.username}          #{"Book Genie".colorize(:light_cyan)}\n\n"
+        # puts "#{user.username}          #{"Book Genie".colorize(:light_cyan)}\n\n"
 
     end
 
