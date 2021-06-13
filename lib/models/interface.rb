@@ -33,7 +33,10 @@ class Interface
         system 'clear'
         self.welcome
         puts "         #{user.username}          #{"Book Genie".colorize(:light_cyan)}"
-        choices = {search: "searching for books", "reading list": "look at reading lists" }
+        choices = {
+            "View Books": "searching for books", 
+            "View Reading List": "look at reading lists" 
+        }
         prompt.select("What would you like to do today?", choices)
         binding.pry
     end
@@ -42,13 +45,7 @@ class Interface
         system 'clear'
         new_interface = Interface.new()
         Interface.welcome
-        binding.pry
-        # this below will call the remaining methods
-        # user = new_interface.login_register_prompt
-        # new_interface.user = user
-
-        #  Main.welcome
-        # new_interface.users_interface(user)
+        # binding.pry
     end
     
 end
