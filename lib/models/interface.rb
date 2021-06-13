@@ -33,7 +33,9 @@ class Interface
         system 'clear'
         self.welcome
         puts "         #{user.username}          #{"Book Genie".colorize(:light_cyan)}"
-
+        choices = {search: "searching for books", "reading list": "look at reading lists" }
+        prompt.select("What would you like to do today?", choices)
+        binding.pry
     end
 
     def new_user
