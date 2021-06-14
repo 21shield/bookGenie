@@ -54,7 +54,9 @@ class Interface
         reading_list_choices = user.get_reading_list_choices
 
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
-        # BookRoser.create(book: selected_book, reading_list:)
+        binding.pry
+        BookRoster.create(book: book, reading_list_id: selected_list)
+        binding.pry
     end
 
     def new_user
