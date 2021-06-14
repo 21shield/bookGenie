@@ -38,14 +38,19 @@ class Interface
             "search Reading List": "look at reading lists" 
         }
         prompt.select("What would you like to do today?", choices)
-        
+        sleep(0.25)
     end
 
     def search_books
         query = prompt.ask("Search by Title or Author")
         books = Book.get_books(query)
-        # binding.pry
-        prompt.select("Add a book to your reading list", books)
+        selected_book = prompt.select("Add a book to your reading list", books)
+        # after the user selects a book ask which reading list to add to
+        # access the current users reading list
+        # once selecting a reading list add the chosen book to the reading list
+        # in the case that there are no reading list create one
+        reading_list_choices = user.reading_lists.map {|rl| rl.name}
+        selected_list = prompt.select("Which Reading List?", reading_list_choices)
     end
 
     def new_user

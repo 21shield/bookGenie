@@ -11,10 +11,20 @@ class Book < ActiveRecord::Base
             q: query,
         }
         response = RestClient.get("https://www.googleapis.com/books/v1/volumes",{params: params})
+
         data = JSON.parse(response)["items"]
-        data.map do |book|
-            "'#{book["volumeInfo"]["title"]}' by #{book["volumeInfo"]["authors"][0]}. Published by #{book["volumeInfo"]["publisher"]}."
-        end
+        # what if the search returns empty?
+        # check if there is data to be returned else return a try again
+        # if !!data 
+            data.map do |book|
+            
+                "title: #{book["volumeInfo"]["title"]}, author: #{book["volumeInfo"]["authors"][0]}, publisher: #{book["volumeInfo"]["publisher"]}"
+            end     
+        # else
+        #     "Try a different query."
+        # end
+
     end
+
     
 end
