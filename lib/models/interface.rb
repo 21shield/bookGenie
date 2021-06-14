@@ -34,11 +34,18 @@ class Interface
         self.welcome
         puts "         #{user.username}          #{"Book Genie".colorize(:light_cyan)}"
         choices = {
-            "View Books": "searching for books", 
-            "View Reading List": "look at reading lists" 
+            "Search Books": self.search_books, 
+            "search Reading List": "look at reading lists" 
         }
         prompt.select("What would you like to do today?", choices)
+        
+    end
+
+    def search_books
+        query = prompt.ask("Search by Title or Author")
+        books = Book.get_books(query)
         binding.pry
+        # prompt.select("Add a book to your reading list", books)
     end
 
     def new_user
