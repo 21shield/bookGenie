@@ -44,8 +44,8 @@ class Interface
     def search_books
         query = prompt.ask("Search by Title or Author")
         books = Book.get_books(query)
-        binding.pry
-        # prompt.select("Add a book to your reading list", books)
+        # binding.pry
+        prompt.select("Add a book to your reading list", books)
     end
 
     def new_user

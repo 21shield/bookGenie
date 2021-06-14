@@ -13,11 +13,7 @@ class Book < ActiveRecord::Base
         response = RestClient.get("https://www.googleapis.com/books/v1/volumes",{params: params})
         data = JSON.parse(response)["items"]
         data.map do |book|
-            {
-                title: book["volumeInfo"]["title"],
-                author: book["volumeInfo"]["authors"][0],
-                publisher: book["volumeInfo"]["publisher"]
-            }
+            "'#{book["volumeInfo"]["title"]}' by #{book["volumeInfo"]["authors"][0]}. Published by #{book["volumeInfo"]["publisher"]}."
         end
     end
     
