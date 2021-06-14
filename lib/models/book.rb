@@ -15,9 +15,11 @@ class Book < ActiveRecord::Base
         data = JSON.parse(response)["items"]
         data.map do |book|
             {
-                title: book["volumeInfo"]["title"],
-                author: book["volumeInfo"]["authors"][0],
-                publisher: book["volumeInfo"]["publisher"],
+                value: {
+                    title: book["volumeInfo"]["title"],
+                    author: book["volumeInfo"]["authors"][0],
+                    publishing_company: book["volumeInfo"]["publisher"]
+                },
                 name: self.format_book_info(book["volumeInfo"])
             } 
         end     

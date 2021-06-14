@@ -46,15 +46,15 @@ class Interface
         books = Book.get_books(query)
         puts "Showing #{books.length} results for \"#{query}\": "
         selected_book = prompt.select("Add a book to your reading list", books)
-        
-        # selected book needs to return an instance or once selected create a instance
-        # after the user selects a book ask which reading list to add to
-        # access the current users reading list
+        # does it make sense to create the instance of the book?
+
+        book = Book.find_or_create_by(selected_book)
         # once selecting a reading list add the chosen book to the reading list
         # in the case that there are no reading list create one
-        reading_list_choices = user.reading_lists.map {|rl| rl.name}
+        reading_list_choices = user.get_reading_list_choices
+
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
-        # BookRoser.create(book: selected_book, reading)
+        # BookRoser.create(book: selected_book, reading_list:)
     end
 
     def new_user

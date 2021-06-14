@@ -38,6 +38,15 @@ class User < ActiveRecord::Base
         
     end
 
+    def get_reading_list_choices
+        self.reading_lists.map do |list|
+            {
+                value: list["id"],
+                name: list["name"],
+            }
+        end
+    end
+
     def self.incorrect_info
         puts "INOCORRECT INPUT".colorize(:red)
         puts "Please try again"
