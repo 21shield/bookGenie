@@ -44,13 +44,17 @@ class Interface
     def search_books
         query = prompt.ask("Search by Title or Author")
         books = Book.get_books(query)
+        puts "Showing #{books.length} results for \"#{query}\": "
         selected_book = prompt.select("Add a book to your reading list", books)
+        
+        # selected book needs to return an instance or once selected create a instance
         # after the user selects a book ask which reading list to add to
         # access the current users reading list
         # once selecting a reading list add the chosen book to the reading list
         # in the case that there are no reading list create one
         reading_list_choices = user.reading_lists.map {|rl| rl.name}
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
+        # BookRoser.create(book: selected_book, reading)
     end
 
     def new_user
