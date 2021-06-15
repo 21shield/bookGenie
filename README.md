@@ -1,6 +1,6 @@
 ![title](./assets/titleScreen.png)
 # Book Genie
-A cli app that allows users to search for books to add to their reading lists. Built with Ruby and Active record
+A cli app that allows users to search for books to add to their reading lists. Built with Ruby and Active Record
 ## Prerequistes 
 * Make sure you have [Ruby](https://www.ruby-lang.org/en/) installed
 * Ensure you have [PostgreSQL](https://www.postgresql.org/) installed
