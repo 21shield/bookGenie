@@ -1,3 +1,6 @@
+![title](./assets/titleScreen.png)
+# Book Genie
+A cli app that allows users to search for books to add to their reading lists. Built with Ruby and Active record
 ## Prerequistes 
 
 ## Installation
