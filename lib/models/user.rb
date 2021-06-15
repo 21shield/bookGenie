@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
         !!response ? (response): (self.incorrect_info)
         found_user = User.find_by(username: response)
         found_user ? found_user : self.incorrect_info
-        
     end
 
     def guest_login
@@ -43,7 +42,10 @@ class User < ActiveRecord::Base
     def get_reading_list_choices
         self.reading_lists.map do |list|
             {
-                value: list["id"],
+                value: {
+                    id: list["id"], 
+                    name: list["name"]
+                },
                 name: list["name"],
             }
         end
@@ -53,9 +55,7 @@ class User < ActiveRecord::Base
         puts "INOCORRECT INPUT Please try again".colorize(:red)
         sleep(1)
         system 'clear'
-        # Interface.welcome
         self.login
-
     end
 
 end

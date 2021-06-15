@@ -16,8 +16,7 @@ class Interface
     def login_register_prompt
         selection = prompt.select("Logging in? or Registering?", ["Logging in", "Registering", "Guest"])
         if selection == "Logging in"
-            puts "logging in ...."
-            current_user = User.login   
+            current_user = User.login  
         elsif selection == "Registering"
             puts "registering..."
             current_user = User.register_new_user
@@ -33,7 +32,7 @@ class Interface
         system 'clear'
         self.welcome
         sleep(2)
-        puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow)}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:."
+        puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow)}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:.\n"
 
         choices = [
             {
@@ -45,35 +44,43 @@ class Interface
                 value: 2
             }
         ]
-        prompt.select("What would you like to do today?", choices)
-        
+        selection = prompt.select("What would you like to do today?", choices)
+        selection == 1 ? self.search_books : self.view_reading_lists
         system 'clear'
     end
 
     def search_books
-        # system 'clear'
+        system 'clear'
         self.welcome
         query = prompt.ask("Search by Title or Author")
         books = Book.get_books(query)
-        puts "Showing #{books.length} results for \"#{query}\": "
-        selected_book = prompt.select("Add a book to your reading list", books)
-        # does it make sense to create the instance of the book?
 
+        puts "Showing #{books.length} results for \"#{query}\": "
+
+        selected_book = prompt.select("Add a book to your reading list", books)
         book = Book.find_or_create_by(selected_book)
+
         # once selecting a reading list add the chosen book to the reading list
         # in the case that there are no reading list create one
         reading_list_choices = user.get_reading_list_choices
+        
 
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
-        BookRoster.create(book: book, reading_list_id: selected_list)
-        puts
+        
+        BookRoster.create(book: book, reading_list_id: selected_list["id"])
+        puts " #{selected_book} was added to #{selected_list["name"]}"
+        sleep(2)
+        self.main_page
+    end
+
+    def view_reading_lists
+        
     end
 
     def new_user
         system 'clear'
         new_interface = Interface.new()
-        Interface.welcome
-        # binding.pry
+        new_interface.welcome
     end
     
 end
