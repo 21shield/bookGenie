@@ -83,9 +83,10 @@ class Interface
         
         reading_list = prompt.select("Which Reading List Would You Like To See?", user.get_reading_list_choices)
         book_list = reading_list[:rl_instance].books.map do |book|
+        binding.pry
+
             Book.format_book_info(book)
         end
-        binding.pry
         prompt.select("#{reading_list["name"]} Books: ", book_list)
         
     end
