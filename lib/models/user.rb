@@ -10,13 +10,15 @@ class User < ActiveRecord::Base
 
     def self.login
         response = prompt.ask("Enter Your Username")
+        !!response ? (response): (self.incorrect_info)
         found_user = User.find_by(username: response)
         found_user ? found_user : self.incorrect_info
         
     end
 
     def guest_login
-        User.find_by_create_by(username: "Guest")
+        guest = User.find_by_create_by(username: "Guest")
+        
     end
 
     def self.register_new_user
@@ -48,9 +50,12 @@ class User < ActiveRecord::Base
     end
 
     def self.incorrect_info
-        puts "INOCORRECT INPUT".colorize(:red)
-        puts "Please try again"
+        puts "INOCORRECT INPUT Please try again".colorize(:red)
+        sleep(1)
+        system 'clear'
+        # Interface.welcome
         self.login
+
     end
 
 end

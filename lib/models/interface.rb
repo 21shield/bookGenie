@@ -32,16 +32,27 @@ class Interface
     def main_page
         system 'clear'
         self.welcome
-        puts "         #{user.username}          #{"Book Genie".colorize(:light_cyan)}"
-        choices = {
-            "Search Books": self.search_books, 
-            "search Reading List": "look at reading lists" 
-        }
+        sleep(2)
+        puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow)}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:."
+
+        choices = [
+            {
+                name: "Search For Books", 
+                value: 1
+            },
+            {
+                name: "Search Reading List", 
+                value: 2
+            }
+        ]
         prompt.select("What would you like to do today?", choices)
-        sleep(0.25)
+        
+        system 'clear'
     end
 
     def search_books
+        # system 'clear'
+        self.welcome
         query = prompt.ask("Search by Title or Author")
         books = Book.get_books(query)
         puts "Showing #{books.length} results for \"#{query}\": "
@@ -54,9 +65,8 @@ class Interface
         reading_list_choices = user.get_reading_list_choices
 
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
-        binding.pry
         BookRoster.create(book: book, reading_list_id: selected_list)
-        binding.pry
+        puts
     end
 
     def new_user
