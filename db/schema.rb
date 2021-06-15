@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_06_11_181126) do
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "author"
-    t.string "publishing_company"
+    t.string "publisher"
   end
 
   create_table "reading_lists", force: :cascade do |t|

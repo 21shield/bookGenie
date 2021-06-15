@@ -9,15 +9,13 @@ class User < ActiveRecord::Base
 
 
     def self.login
-        response = prompt.ask("Enter Your Username")
-        !!response ? (response): (self.incorrect_info)
+        response = prompt.ask("Enter Your Username", required: true)
         found_user = User.find_by(username: response)
         found_user ? found_user : self.incorrect_info
     end
 
-    def guest_login
-        guest = User.find_by_create_by(username: "Guest")
-        
+    def self.guest_login
+        User.find_or_create_by(username: "Guest")
     end
 
     def self.register_new_user
@@ -44,7 +42,8 @@ class User < ActiveRecord::Base
             {
                 value: {
                     id: list["id"], 
-                    name: list["name"]
+                    name: list["name"],
+                    rl_instance: list
                 },
                 name: list["name"],
             }

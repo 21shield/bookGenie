@@ -30,9 +30,9 @@ class Interface
 
     def main_page
         system 'clear'
-        self.welcome
+        welcome()
         sleep(2)
-        puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow)}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:.\n"
+        puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow).blink}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:."
 
         choices = [
             {
@@ -40,7 +40,7 @@ class Interface
                 value: 1
             },
             {
-                name: "Search Reading List", 
+                name: "View Reading Lists", 
                 value: 2
             }
         ]
@@ -55,7 +55,7 @@ class Interface
         query = prompt.ask("Search by Title or Author")
         books = Book.get_books(query)
 
-        puts "Showing #{books.length} results for \"#{query}\": "
+        puts "Showing #{books.length} results for \"#{query}\": ".colorize(:yellow)
 
         selected_book = prompt.select("Add a book to your reading list", books)
         book = Book.find_or_create_by(selected_book)
@@ -66,15 +66,34 @@ class Interface
         
 
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
-        
+
         BookRoster.create(book: book, reading_list_id: selected_list["id"])
-        puts " #{selected_book} was added to #{selected_list["name"]}"
+
+        puts " #{selected_book[:title]} was added to #{selected_list[:name]}"
         sleep(2)
         self.main_page
     end
 
     def view_reading_lists
+        # must view a list of reading lists of the current user
+        # when selecting the reading list open up to see the books within
+        # be able to go back to the main menu when done
+        # reading_list = ReadingList.current_user_lists(user)
+        # user.reading_list()
         
+        reading_list = prompt.select("Which Reading List Would You Like To See?", user.get_reading_list_choices)
+        book_list = reading_list[:rl_instance].books.map do |book|
+            Book.format_book_info(book)
+        end
+        binding.pry
+        prompt.select("#{reading_list["name"]} Books: ", book_list)
+        
+    end
+
+    def action_exit
+        system 'clear'
+        welcome()
+        main_page()
     end
 
     def new_user

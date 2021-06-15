@@ -18,7 +18,7 @@ class Book < ActiveRecord::Base
                 value: {
                     title: book["volumeInfo"]["title"],
                     author: book["volumeInfo"]["authors"][0],
-                    publishing_company: book["volumeInfo"]["publisher"]
+                    publisher: book["volumeInfo"]["publisher"]
                 },
                 name: self.format_book_info(book["volumeInfo"])
             } 
@@ -27,8 +27,10 @@ class Book < ActiveRecord::Base
     end
 
     def self.format_book_info(book)
-        "  📖 \"#{book["title"]}\"\n    Author: #{book["authors"][0]}\n    Publisher: #{book["publisher"]}"
+        
+        "  📖 \"#{book["title"]}\"\n  Author: #{book.instance_of? Book ? book["authors"][0]: book["author"]}\n    Publisher: #{book["publisher"]}"
     end
+
 
     
 end

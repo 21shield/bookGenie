@@ -3,11 +3,11 @@ Book.destroy_all
 ReadingList.destroy_all
 BookRoster.destroy_all
 
-luna = User.create(username: "LunaLovegood")
+guest = User.create(username: "Guest")
 
-quibbler = ReadingList.create(name: "Research List", user_id: luna.id)
+quibbler = ReadingList.create(name: "Research List", user_id: guest.id)
 
-hp1 = Book.create(title: "Socercers Stone", author: "J.K Rowling", publishing_company: "millers")
+hp1 = Book.create(title: "Socercers Stone", author: "J.K Rowling", publisher: "millers")
 
 BookRoster.create(book: hp1, reading_list: quibbler)
 
