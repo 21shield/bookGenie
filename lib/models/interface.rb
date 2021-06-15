@@ -23,9 +23,7 @@ class Interface
         else
             current_user = User.guest_login
         end
-
          current_user
-
     end
 
     def main_page
@@ -50,8 +48,7 @@ class Interface
     end
 
     def search_books
-        system 'clear'
-        self.welcome
+        welcome()
         query = prompt.ask("Search by Title or Author")
         books = Book.get_books(query)
 
@@ -66,12 +63,10 @@ class Interface
         
 
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
-
-        BookRoster.create(book: book, reading_list_id: selected_list["id"])
-
+        BookRoster.create(book: book, reading_list_id: selected_list[:id])
         puts " #{selected_book[:title]} was added to #{selected_list[:name]}"
         sleep(2)
-        self.main_page
+        main_page()
     end
 
     def view_reading_lists
@@ -83,19 +78,13 @@ class Interface
         
         reading_list = prompt.select("Which Reading List Would You Like To See?", user.get_reading_list_choices)
         book_list = reading_list[:rl_instance].books.map do |book|
-        binding.pry
-
-            Book.format_book_info(book)
+           puts Book.format_book_info(book)
+           sleep(1)
         end
-        prompt.select("#{reading_list["name"]} Books: ", book_list)
-        
-    end
-
-    def action_exit
-        system 'clear'
-        welcome()
+        sleep(1)
         main_page()
     end
+
 
     def new_user
         system 'clear'

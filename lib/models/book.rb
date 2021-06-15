@@ -26,10 +26,13 @@ class Book < ActiveRecord::Base
 
     end
 
-    def self.format_book_info(book)
-        binding.pry
-        # have a ternary to check if the input is an instance and access the info accordingling
-        "  📖 \"#{book["title"]}\"\n  Author: #{book.instance_of? Book ?  book["author"] : book["authors"][0]}\n    Publisher: #{book["publisher"]}"
+    def self.format_book_info(book)        
+        if book.instance_of? Book
+    
+            "  📖 \"#{book["title"]}\"   Author: #{book["author"]}\n    Publisher: #{book["publisher"]}"
+        else
+            "  📖 \"#{book["title"]}\"\n   Author: #{book["authors"][0]}\n    Publisher: #{book["publisher"]}"
+        end
     end
 
 
