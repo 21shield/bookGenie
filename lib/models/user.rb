@@ -15,24 +15,25 @@ class User < ActiveRecord::Base
     end
 
     def self.guest_login
-        User.find_or_create_by(username: "Guest")
+        User.find_or_create_by(username: "Demo Guest")
     end
 
     def self.register_new_user
-        username = self.prompt.ask("Create a Username #{"Must be 3 characters or greater and not contain and spaces or special characters".colorize(:light_black)}\n") do |answer|
+        username = prompt.ask("Create a Username #{"Must be 3 characters or greater and not contain and spaces or special characters".colorize(:light_black)}\n") do |answer|
             answer.validate (/\w{3,}/)
             answer.messages[:valid?] = 'Invalid username, try again'.colorize(:red)
         end
-
         if User.find_by(username: username) 
             puts "Username already taken!".colorize(:red)
             sleep(2)
             print "\r" + ("\e[A\e[K"*3)
             self.register_new_user
         else
-            User.create(username: username)
+            new_user = User.create(username: username)
+            ReadingList.create(name: "First Reading List", user: new_user)
             puts "Username successfully created!".colorize(:cyan)
-            sleep(2)
+            sleep(1)
+            new_user
         end
         
     end

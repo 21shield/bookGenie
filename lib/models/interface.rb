@@ -31,65 +31,52 @@ class Interface
         welcome()
         sleep(2)
         puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow).blink}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:."
+        main_menu()
+       
+    end
 
-        choices = [
-            {
-                name: "Search For Books", 
-                value: 1
-            },
-            {
-                name: "View Reading Lists", 
-                value: 2
-            }
-        ]
-        selection = prompt.select("What would you like to do today?", choices)
-        selection == 1 ? self.search_books : self.view_reading_lists
-        system 'clear'
+    def main_menu
+        selection = prompt.select("Main Menu") do |menu|
+            menu.choice "Search For Books", -> {search_books}
+            menu.choice "View Reading Lists", -> {view_reading_lists}
+            menu.choice "Exit", -> {new_session}
+        end
     end
 
     def search_books
-        welcome()
         query = prompt.ask("Search by Title or Author")
         books = Book.get_books(query)
 
         puts "Showing #{books.length} results for \"#{query}\": ".colorize(:yellow)
 
-        selected_book = prompt.select("Add a book to your reading list", books)
-        book = Book.find_or_create_by(selected_book)
-
-        # once selecting a reading list add the chosen book to the reading list
-        # in the case that there are no reading list create one
+        book = Book.select_and_create_book(books)
+        # in the case that there are no reading list create oneb
         reading_list_choices = user.get_reading_list_choices
-        
 
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
         BookRoster.create(book: book, reading_list_id: selected_list[:id])
-        puts " #{selected_book[:title]} was added to #{selected_list[:name]}"
-        sleep(2)
+
+        puts " #{book[:title]} was added to #{selected_list[:name]}"
+        sleep(1)
         main_page()
     end
 
     def view_reading_lists
-        # must view a list of reading lists of the current user
-        # when selecting the reading list open up to see the books within
-        # be able to go back to the main menu when done
-        # reading_list = ReadingList.current_user_lists(user)
-        # user.reading_list()
-        
+        system 'clear'
         reading_list = prompt.select("Which Reading List Would You Like To See?", user.get_reading_list_choices)
         book_list = reading_list[:rl_instance].books.map do |book|
            puts Book.format_book_info(book)
            sleep(1)
         end
-        sleep(1)
+        sleep(2)
         main_page()
     end
 
-
-    def new_user
+    def new_session
         system 'clear'
-        new_interface = Interface.new()
-        new_interface.welcome
+        self.user = nil
+        self.user = login_register_prompt()
+        main_page()
     end
     
 end
