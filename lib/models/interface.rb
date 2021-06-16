@@ -29,10 +29,8 @@ class Interface
     def main_page
         system 'clear'
         welcome()
-        sleep(2)
         puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow).blink}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:."
         main_menu()
-       
     end
 
     def main_menu
@@ -44,19 +42,17 @@ class Interface
     end
 
     def search_books
-        query = prompt.ask("Search by Title or Author")
+        query = prompt.ask("Search by Title or Author", required: true)
         books = Book.get_books(query)
-
         puts "Showing #{books.length} results for \"#{query}\": ".colorize(:yellow)
-
         book = Book.select_and_create_book(books)
-        # in the case that there are no reading list create oneb
         reading_list_choices = user.get_reading_list_choices
 
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
         BookRoster.create(book: book, reading_list_id: selected_list[:id])
 
         puts " #{book[:title]} was added to #{selected_list[:name]}"
+
         sleep(1)
         main_page()
     end
