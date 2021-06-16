@@ -21,7 +21,6 @@ class Book < ActiveRecord::Base
 
         data = JSON.parse(response)["items"]
         data.map do |book|
-            binding.pry
             {
                 value: {
                     title: book["volumeInfo"]["title"],
