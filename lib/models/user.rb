@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
     end
 
     def self.guest_login
-        User.find_or_create_by(username: "Demo Guest")
+        guest_user = User.find_or_create_by(username: "Guest")
     end
 
     def self.register_new_user
@@ -35,7 +35,6 @@ class User < ActiveRecord::Base
             sleep(1)
             new_user
         end
-        
     end
 
     def get_reading_list_choices

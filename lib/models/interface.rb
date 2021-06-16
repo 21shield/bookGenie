@@ -14,7 +14,7 @@ class Interface
     end
 
     def login_register_prompt
-        selection = prompt.select("Logging in? or Registering?", ["Logging in", "Registering", "Guest"])
+        selection = prompt.select("Logging in? or Registering?", ["Logging in", "Registering", "Demo Guest"])
         if selection == "Logging in"
             current_user = User.login  
         elsif selection == "Registering"
