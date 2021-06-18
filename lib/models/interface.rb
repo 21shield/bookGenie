@@ -46,13 +46,12 @@ class Interface
         books = Book.get_books(query)
         puts "Showing #{books.length} results for \"#{query}\": ".colorize(:yellow)
         book = Book.select_and_create_book(books)
-        reading_list_choices = user.get_reading_list_choices
 
+        reading_list_choices = user.get_reading_list_choices
         selected_list = prompt.select("Which Reading List?", reading_list_choices)
         BookRoster.create(book: book, reading_list_id: selected_list[:id])
 
         puts " #{book[:title]} was added to #{selected_list[:name]}"
-
         sleep(1)
         main_page()
     end
