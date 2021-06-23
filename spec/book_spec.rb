@@ -1,6 +1,6 @@
 # class methods are prefixed with a dot (".add"), 
 # instance methods with a dash ("#add").
-# require "./lib/book.rb"
+require "spec_helper"
 describe Book do 
 
     describe ".get_books" do 
