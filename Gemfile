@@ -5,7 +5,7 @@ gem "sinatra-activerecord"
 gem "sqlite3", '~> 1.3.6'
 gem "pry"
 gem "require_all"
-gem "rspec"
+gem "rspec", '~> 3.0'
 gem 'tty-prompt'
 gem "colorize"
 gem "rest-client"
