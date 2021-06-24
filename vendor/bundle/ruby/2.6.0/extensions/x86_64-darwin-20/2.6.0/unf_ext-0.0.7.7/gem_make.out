@@ -1,5 +1,5 @@
 current directory: /Users/netalyramirez/Development/code/practice/bookGenie/vendor/bundle/ruby/2.6.0/gems/unf_ext-0.0.7.7/ext/unf_ext
-/Users/netalyramirez/.rvm/rubies/ruby-2.6.1/bin/ruby -I /Users/netalyramirez/.rvm/rubies/ruby-2.6.1/lib/ruby/site_ruby/2.6.0 -r ./siteconf20210623-69136-phemu.rb extconf.rb
+/Users/netalyramirez/.rvm/rubies/ruby-2.6.1/bin/ruby -I /Users/netalyramirez/.rvm/rubies/ruby-2.6.1/lib/ruby/site_ruby/2.6.0 -r ./siteconf20210624-71487-euu85q.rb extconf.rb
 checking for -lstdc++... yes
 creating Makefile
 
@@ -35,4 +35,4 @@ linking shared-object unf_ext.bundle
 
 current directory: /Users/netalyramirez/Development/code/practice/bookGenie/vendor/bundle/ruby/2.6.0/gems/unf_ext-0.0.7.7/ext/unf_ext
 make DESTDIR\= install
-/usr/local/opt/coreutils/bin/ginstall -c -m 0755 unf_ext.bundle ./.gem.20210623-69136-41hhch
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 unf_ext.bundle ./.gem.20210624-71487-vdtuf5

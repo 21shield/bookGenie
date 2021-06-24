@@ -1,5 +1,5 @@
 current directory: /Users/netalyramirez/Development/code/practice/bookGenie/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.3.13/ext/sqlite3
-/Users/netalyramirez/.rvm/rubies/ruby-2.6.1/bin/ruby -I /Users/netalyramirez/.rvm/rubies/ruby-2.6.1/lib/ruby/site_ruby/2.6.0 -r ./siteconf20210623-69136-tspeig.rb extconf.rb
+/Users/netalyramirez/.rvm/rubies/ruby-2.6.1/bin/ruby -I /Users/netalyramirez/.rvm/rubies/ruby-2.6.1/lib/ruby/site_ruby/2.6.0 -r ./siteconf20210624-71487-mgqu5o.rb extconf.rb
 checking for sqlite3.h... yes
 checking for pthread_create() in -lpthread... yes
 checking for sqlite3_libversion_number() in -lsqlite3... yes
@@ -30,4 +30,4 @@ linking shared-object sqlite3/sqlite3_native.bundle
 
 current directory: /Users/netalyramirez/Development/code/practice/bookGenie/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.3.13/ext/sqlite3
 make DESTDIR\= install
-/usr/local/opt/coreutils/bin/ginstall -c -m 0755 sqlite3_native.bundle ./.gem.20210623-69136-1oz412a/sqlite3
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 sqlite3_native.bundle ./.gem.20210624-71487-awmnqw/sqlite3

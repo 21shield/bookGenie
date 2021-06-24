@@ -29,7 +29,7 @@ class Interface
     def main_page
         system 'clear'
         welcome()
-        puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow).blink}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:."
+        puts "\n.:.:.:.:.:  #{user.username.colorize(:yellow)}  .:.:.:.: #{"Book Genie".colorize(:light_cyan)} :.:.:.:.:.:.:.:.:.:.:."
         main_menu()
     end
 
@@ -43,9 +43,15 @@ class Interface
 
     def search_books
         query = sanatize_params(prompt.ask("Search by Title or Author", required: true))
-
+      
         books = Book.get_books(query)
-        
+        if !books
+            puts "Sorry there was an issue with your search. Please try again."
+            sleep(2)
+            system 'clear'
+            main_page()
+        end
+
         puts "Showing #{books.length} results for \"#{query}\": ".colorize(:yellow)
         book = Book.select_and_create_book(books)
 
@@ -77,6 +83,6 @@ class Interface
     end
     
     def sanatize_params(param)
-        param.gsub!(/[^0-9A-Za-z.\-]/, ' ')
+        param.gsub(/[^0-9A-Za-z.\-]/, ' ')
     end
 end

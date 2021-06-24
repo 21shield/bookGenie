@@ -12,7 +12,6 @@ class Book < ActiveRecord::Base
     end
 
     def self.get_books(query)
-
         params = {
             key: ENV["GOOGLE_BOOK_API_KEY"],
             maxResults: 5,
@@ -21,20 +20,22 @@ class Book < ActiveRecord::Base
             projection: "lite",
             q: query,
         }
-        response = RestClient.get("https://www.googleapis.com/books/v1/volumes",{params: params})
-
-        data = JSON.parse(response)["items"]
-        data.map do |book|
-            {
-                value: {
-                    title: book["volumeInfo"]["title"],
-                    author: book["volumeInfo"]["authors"][0] ? (book["volumeInfo"]["authors"][0]) : ("Unknown"),
-                    publisher: book["volumeInfo"]["publisher"] ? (book["volumeInfo"]["publisher"]) : ("N/A")
-                },
-                name: self.format_book_info(book["volumeInfo"])
-            } 
-        end     
-
+        begin
+            response = RestClient.get("https://www.googleapis.com/books/v1/volumes",{params: params})
+            data = JSON.parse(response)["items"]
+            data.map do |book|
+                {
+                    value: {
+                        title: book["volumeInfo"]["title"],
+                        author: book["volumeInfo"]["authors"][0] ? (book["volumeInfo"]["authors"][0]) : ("Unknown"),
+                        publisher: book["volumeInfo"]["publisher"] ? (book["volumeInfo"]["publisher"]) : ("N/A")
+                    },
+                    name: self.format_book_info(book["volumeInfo"])
+                } 
+            end 
+        rescue StandardError => err
+            puts "Oops! 404" 
+        end
     end
 
     def self.select_and_create_book(books)
