@@ -42,8 +42,10 @@ class Interface
     end
 
     def search_books
-        query = prompt.ask("Search by Title or Author", required: true)
+        query = sanatize_params(prompt.ask("Search by Title or Author", required: true))
+
         books = Book.get_books(query)
+        
         puts "Showing #{books.length} results for \"#{query}\": ".colorize(:yellow)
         book = Book.select_and_create_book(books)
 
@@ -74,4 +76,7 @@ class Interface
         main_page()
     end
     
+    def sanatize_params(param)
+        param.gsub!(/[^0-9A-Za-z.\-]/, ' ')
+    end
 end

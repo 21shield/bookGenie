@@ -1,6 +1,7 @@
 require 'rest-client'
 require 'active_record'
 require 'tty-prompt'
+
 class Book < ActiveRecord::Base
 
     has_many :book_rosters
