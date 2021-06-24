@@ -1,3 +1,4 @@
+require 'active_record'
 class User < ActiveRecord::Base
     has_many :reading_lists
     @@prompt = TTY::Prompt.new(active_color: :cyan, symbols: {marker: '📘', radio_on: 

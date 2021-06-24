@@ -14,9 +14,10 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'rubygems'
-# ENV["RAILS_ENV"] ||= 'test'
 require_relative '../lib/models/book'
+require_relative '../lib/models/user'
 require 'active_record'
+
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
